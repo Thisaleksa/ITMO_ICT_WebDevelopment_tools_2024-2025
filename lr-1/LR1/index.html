@@ -1,0 +1,792 @@
+
+<!doctype html>
+<html lang="ru" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.5.38">
+    
+    
+      
+        <title>Лабораторная часть. Разработка веб-приложения для поиска партнеров в путешествие. - Web-labs-Spring</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.8c3ca2c6.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="purple" data-md-color-accent="pink">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#-" class="md-skip">
+          Перейти к содержанию
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Верхний колонтитул">
+    <a href="../.." title="Web-labs-Spring" class="md-header__button md-logo" aria-label="Web-labs-Spring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Web-labs-Spring
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Лабораторная часть. Разработка веб-приложения для поиска партнеров в путешествие.
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="purple" data-md-color-accent="pink"  aria-hidden="true"  type="radio" name="__palette" id="__palette_0">
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Поиск" placeholder="Поиск" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Поиск">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Очистить" aria-label="Очистить" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Инициализация поиска
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Вкладки" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+    
+  
+  Главная
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../main-lr1/" class="md-tabs__link">
+        
+  
+    
+  
+  Лабораторная работа 1
+
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Навигация" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Web-labs-Spring" class="md-nav__button md-logo" aria-label="Web-labs-Spring" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Web-labs-Spring
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Главная
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main-lr1/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Лабораторная работа 1
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+<h1 id="-">Лабораторная часть. Разработка веб-приложения для поиска партнеров в путешествие.</h1>
+<h2 id="_1">Задание:</h2>
+<ul>
+<li>
+<p>Задача - создать веб-приложение, которое поможет людям находить партнеров для совместных путешествий. Приложение должно предоставлять возможность пользователям находить попутчиков для конкретных путешествий, обмениваться информацией о планируемых поездках и обсуждать детали маршрута. Функционал веб-приложения должен включать следующее:</p>
+</li>
+<li>
+<p><strong>Создание профилей:</strong> Возможность пользователям создавать профили, указывать информацию о себе, своих навыках, опыте работы и предпочтениях по проектам.</p>
+</li>
+<li><strong>Создание поездок:</strong> Возможность пользователям создавать объявления о планируемых поездках с указанием дат, маршрута, предполагаемой длительности и других деталей.</li>
+<li><strong>Поиск попутчиков:</strong> Функционал поиска попутчиков для конкретных поездок на основе заданных критериев, таких как место отправления, место назначения, даты и т.д.</li>
+<li><strong>Управление поездками:</strong> Возможность управления созданными поездками, включая добавление/изменение деталей, отмену поездки и т.д.</li>
+</ul>
+<h3 id="_2">Модели:</h3>
+<p>Веб-приложение для поиска попутчиков построено на SQLModel и содержит следующие основные модели:</p>
+<p>👤 <strong>User (Пользователь)</strong>
+Модель пользователя содержит уникальный ID, имя пользователя (username), электронную почту, хэшированный пароль, возраст и краткую биографию. Пользователь может создавать поездки и подавать заявки на участие в чужих поездках.</p>
+<p>🏖 <strong>Trip (Поездка)</strong>
+Поездка включает ID, владельца (связь с пользователем), место назначения, даты начала и окончания, а также описание. Также связана с предпочтениями (например, тип путешествия), заявками на участие и сообщениями, оставленными пользователями.</p>
+<p>❤️ <strong>Preference (Предпочтение)</strong>
+Отражает предпочтения, связанные с путешествием — например, «горы», «пляж», «экотуризм». Каждая поездка может иметь несколько предпочтений через промежуточную модель TripPreference.</p>
+<p>🔧 <strong>TripPreference (Связь поездки и предпочтения)</strong>
+Промежуточная таблица для реализации связи многие-ко-многим между поездками и предпочтениями. Хранит только идентификаторы поездки и предпочтения.</p>
+<p>🆗 <strong>TripRequest (Заявка на участие)</strong>
+Представляет собой заявку пользователя на участие в конкретной поездке. Содержит статус заявки (ожидание, принято, отклонено), а также связи с пользователем и поездкой.</p>
+<p>💬 <strong>Message (Сообщение)</strong>
+Сообщение, отправленное пользователем в рамках обсуждения конкретной поездки. Содержит текст, дату/время и связь с отправителем и поездкой.</p>
+<p>⭐ <strong>FavoriteTrip (Избранные поездки)</strong>
+Позволяет пользователю добавить поездку в избранное. Реализуется как таблица с двумя внешними ключами: на пользователя и на поездку.</p>
+<pre><code class="language-python">from sqlmodel import SQLModel, Field, Relationship
+from typing import List, Optional
+from datetime import datetime
+
+class User(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    username: str = Field(unique=True, index=True)
+    email: str = Field(unique=True, index=True)
+    hashed_password: str
+    age: Optional[int] = Field(default=None)
+    bio: Optional[str] = Field(default=None)
+
+    trips: List[&quot;Trip&quot;] = Relationship(back_populates=&quot;owner&quot;)
+    trip_requests: List[&quot;TripRequest&quot;] = Relationship(back_populates=&quot;user&quot;)
+
+class TripPreference(SQLModel, table=True):
+    trip_id: int = Field(foreign_key=&quot;trip.id&quot;, primary_key=True)
+    preference_id: int = Field(foreign_key=&quot;preference.id&quot;, primary_key=True)
+
+class Trip(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    owner_id: int = Field(foreign_key=&quot;user.id&quot;, index=True)
+    destination: str
+    start_date: datetime
+    end_date: datetime
+    description: Optional[str] = Field(default=None)
+
+    owner: User = Relationship(back_populates=&quot;trips&quot;)
+    trip_requests: List[&quot;TripRequest&quot;] = Relationship(back_populates=&quot;trip&quot;)
+    preferences: List[&quot;Preference&quot;] = Relationship(
+        back_populates=&quot;trips&quot;,
+        link_model=TripPreference
+    )
+    messages: List[&quot;Message&quot;] = Relationship(back_populates=&quot;trip&quot;)
+
+class Preference(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    name: str = Field(index=True)
+
+    trips: List[&quot;Trip&quot;] = Relationship(
+        back_populates=&quot;preferences&quot;,
+        link_model=TripPreference
+    )
+
+class TripRequest(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    user_id: int = Field(foreign_key=&quot;user.id&quot;, index=True)
+    trip_id: int = Field(foreign_key=&quot;trip.id&quot;, index=True)
+    status: str = Field(default=&quot;pending&quot;)  # pending, accepted, rejected
+
+    user: User = Relationship(back_populates=&quot;trip_requests&quot;)
+    trip: Trip = Relationship(back_populates=&quot;trip_requests&quot;)
+
+class Message(SQLModel, table=True):
+    id: int | None = Field(default=None, primary_key=True)
+    sender_id: int = Field(foreign_key=&quot;user.id&quot;, index=True)
+    trip_id: int = Field(foreign_key=&quot;trip.id&quot;, index=True)
+    content: str
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
+
+    sender: User = Relationship()
+    trip: Trip = Relationship(back_populates=&quot;messages&quot;)
+
+
+class FavoriteTrip(SQLModel, table=True):
+    user_id: int = Field(foreign_key=&quot;user.id&quot;, primary_key=True)
+    trip_id: int = Field(foreign_key=&quot;trip.id&quot;, primary_key=True)
+</code></pre>
+<h3 id="_3">Эндпойнты:</h3>
+<p>В проекте я создала директорию routers, в которой храню файлы с эндпойнтами к каждой модели.
+* #### Users:
+    В файле с эндпойнтами юзера реализованы эндпойнты с регистрацией и авторизацией пользователя с помощью токена, а также базовые CRUD-запросы. Эндпойнт <em><strong>/{user_id}/with_trips</strong></em> выводит информацию о пользователе и связанного с ним поездками.
+      <img alt="post" src="../images-lr1/p1.png" /></p>
+<pre><code class="language-python">from fastapi import APIRouter, Depends, HTTPException, status
+from sqlalchemy.orm import Session
+from fastapi import Form
+from sqlalchemy.orm import selectinload
+from fastapi.security import OAuth2PasswordBearer, OAuth2PasswordRequestForm
+from auth import *
+from models import User
+from sqlmodel import Session, select
+from schemas import *
+from connection import get_session
+
+router = APIRouter(prefix=&quot;/users&quot;, tags=[&quot;Users&quot;])
+
+oauth2_scheme = OAuth2PasswordBearer(tokenUrl=&quot;users/login&quot;)
+
+
+def get_current_user(token: str = Depends(oauth2_scheme), db: Session = Depends(get_session)):
+    try:
+        payload = decode_token(token)
+        username = payload.get(&quot;sub&quot;)
+        if username is None:
+            raise HTTPException(status_code=401, detail=&quot;Invalid token&quot;)
+        user = db.query(User).filter(User.username == username).first()
+        if user is None:
+            raise HTTPException(status_code=401, detail=&quot;User not found&quot;)
+        return user
+    except JWTError:
+        raise HTTPException(status_code=401, detail=&quot;Invalid token&quot;)
+
+
+@router.post(&quot;/register&quot;, response_model=UserOut)
+def register(user_data: UserCreate, db: Session = Depends(get_session)):
+    if db.query(User).filter(User.username == user_data.username).first():
+        raise HTTPException(status_code=400, detail=&quot;Username already registered&quot;)
+
+    user = User(
+        email=user_data.email,
+        username=user_data.username,
+        hashed_password=hash_password(user_data.password)
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@router.post(&quot;/login&quot;, response_model=Token)
+def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_session)):
+    # Проверка пользователя в базе данных
+    user = db.query(User).filter(User.username == form_data.username).first()
+    if not user or not verify_password(form_data.password, user.hashed_password):
+        raise HTTPException(status_code=401, detail=&quot;Incorrect username or password&quot;)
+
+    access_token = create_access_token(data={&quot;sub&quot;: user.username})
+    return {&quot;access_token&quot;: access_token, &quot;token_type&quot;: &quot;bearer&quot;}
+
+
+@router.get(&quot;/me&quot;, response_model=UserOut)
+def read_users_me(current_user: User = Depends(get_current_user)):
+    return current_user
+
+
+@router.get(&quot;/&quot;, response_model=list[UserOut])
+def get_all_users(db: Session = Depends(get_session)):
+    return db.query(User).all()
+
+
+@router.post(&quot;/change-password&quot;)
+def change_password(
+    old_password: str = Form(...),
+    new_password: str = Form(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_session)
+):
+    if not verify_password(old_password, current_user.hashed_password):
+        raise HTTPException(status_code=400, detail=&quot;Incorrect old password&quot;)
+
+    current_user.hashed_password = hash_password(new_password)
+    db.commit()
+    return {&quot;message&quot;: &quot;Password changed successfully&quot;}
+
+@router.put(&quot;/update&quot;)
+def update_user(
+    username: str = Form(...),
+    email: str = Form(...),
+    bio: str = Form(...),
+    age: int = Form(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_session)
+):
+    if current_user.id != current_user.id:
+        raise HTTPException(status_code=403, detail=&quot;You can only update your own data&quot;)
+
+    if username:
+        current_user.username = username
+    if email:
+        current_user.email = email
+    if bio:
+        current_user.bio = bio
+    if age:
+        current_user.age = age
+
+    db.commit()
+    db.refresh(current_user)
+
+    return {&quot;message&quot;: &quot;User data updated successfully&quot;, &quot;user&quot;: current_user}
+
+@router.get(&quot;&quot;, response_model=List[User])
+def get_users(db: Session = Depends(get_session)):
+    users = db.exec(select(User)).all()
+    return users
+
+@router.post(&quot;&quot;, response_model=User)
+def create_user(user: User, db: Session = Depends(get_session)):
+    db_user = User(username=user.username, email=user.email, hashed_password=user.hashed_password, age=user.age, bio=user.bio)
+    db.add(db_user)
+    db.commit()
+    db.refresh(db_user)
+    return db_user
+
+@router.get(&quot;/{user_id}&quot;, response_model=User)
+def get_user(user_id: int, db: Session = Depends(get_session)):
+    db_user = db.get(User, user_id)
+    if not db_user:
+        raise HTTPException(status_code=404, detail=&quot;User not found&quot;)
+    return db_user
+
+@router.delete(&quot;/{user_id}&quot;)
+def delete_user(user_id: int, db: Session = Depends(get_session)):
+    user = db.get(User, user_id)
+    if not user:
+        raise HTTPException(status_code=404, detail=&quot;User not found&quot;)
+    db.delete(user)
+    db.commit()
+    return {&quot;message&quot;: &quot;User deleted successfully&quot;}
+
+@router.get(&quot;/{user_id}/with_trips&quot;, response_model=UserWithTrips)
+def get_user_with_trips(user_id: int, db: Session = Depends(get_session)):
+    db_user = db.exec(select(User).where(User.id == user_id).options(selectinload(User.trips))).first()
+
+    if not db_user:
+        raise HTTPException(status_code=404, detail=&quot;User not found&quot;)
+
+    return db_user
+</code></pre>
+<p>Пример работы: 
+* Выводим список всех пользователей:
+  <img alt="post" src="../images-lr1/p2.png" />
+* Изменение пользовательских данных с авторизацией:
+  <img alt="post" src="../images-lr1/p3.png" />
+* #### Trips:
+    В файле с эндпойнтами поездки реализован поиск по заданным параметрам и запрос <strong><em>/{trip_id}/with_messages</em></strong>, который выведет поездку и все сообщения, оставленные к ней. Также реализованы базовые CRUD-запросы.</p>
+<pre><code class="language-python">from fastapi import APIRouter, Depends, HTTPException, Query
+from typing import List, Optional
+from sqlmodel import Session, select
+from sqlalchemy.orm import selectinload
+from datetime import datetime
+from connection import get_session
+from models.models import Trip, User
+from schemas import TripWithMessages
+
+router = APIRouter(prefix=&quot;/trips&quot;, tags=[&quot;Trips&quot;])
+
+@router.get(&quot;&quot;, response_model=List[Trip])
+def get_trips(db: Session = Depends(get_session)):
+    return db.exec(select(Trip)).all()
+
+@router.post(&quot;&quot;, response_model=Trip)
+def create_trip(trip: Trip, db: Session = Depends(get_session)):
+    user = db.get(User, trip.owner_id)
+    if not user:
+        raise HTTPException(status_code=400, detail=&quot;User not found&quot;)
+    db.add(trip)
+    db.commit()
+    db.refresh(trip)
+    return trip
+
+@router.get(&quot;/search&quot;, response_model=List[Trip])
+def search_trips(destination: Optional[str] = None, start_date: Optional[datetime] = None,
+                 end_date: Optional[datetime] = None, owner_id: Optional[int] = None,
+                 db: Session = Depends(get_session)):
+    query = select(Trip)
+    if destination:
+        query = query.where(Trip.destination.ilike(f&quot;%{destination}%&quot;))
+    if start_date:
+        query = query.where(Trip.start_date &gt;= start_date)
+    if end_date:
+        query = query.where(Trip.end_date &lt;= end_date)
+    if owner_id:
+        query = query.where(Trip.owner_id == owner_id)
+    return db.exec(query).all()
+
+@router.get(&quot;/{trip_id}&quot;, response_model=Trip)
+def get_trip(trip_id: int, db: Session = Depends(get_session)):
+    trip = db.get(Trip, trip_id)
+    if not trip:
+        raise HTTPException(status_code=404, detail=&quot;Trip not found&quot;)
+    return trip
+
+@router.get(&quot;/{trip_id}/with_messages&quot;, response_model=TripWithMessages)
+def get_trip_with_messages(trip_id: int, db: Session = Depends(get_session)):
+    trip = db.exec(select(Trip).where(Trip.id == trip_id).options(selectinload(Trip.messages))).first()
+    if not trip:
+        raise HTTPException(status_code=404, detail=&quot;Trip not found&quot;)
+    return trip
+
+@router.delete(&quot;/{trip_id}&quot;)
+def delete_trip(trip_id: int, db: Session = Depends(get_session)):
+    trip = db.get(Trip, trip_id)
+    if not trip:
+        raise HTTPException(status_code=404, detail=&quot;Trip not found&quot;)
+    db.delete(trip)
+    db.commit()
+    return {&quot;message&quot;: &quot;Trip deleted successfully&quot;}
+</code></pre>
+<p>Пример работы: 
+* Поиск по поездкам:
+  <img alt="post" src="../images-lr1/p4.png" />
+* Поездка и сообщения к ней: 
+  <img alt="post" src="../images-lr1/p5.png" /></p>
+<p>По аналогии реализованы эндпойнты к другим моделям. Полный список всех эндпойнтов:
+<img alt="post" src="../images-lr1/p6.png" /></p>
+<h3 id="_4">Авторизация с помощью токенов:</h3>
+<p>Создаем файл auth.py, в котором будем генерировать токены:</p>
+<pre><code class="language-python">pwd_context = CryptContext(schemes=[&quot;bcrypt&quot;], deprecated=&quot;auto&quot;)
+
+def hash_password(password: str):
+    return pwd_context.hash(password)
+
+def verify_password(plain_password, hashed_password):
+    return pwd_context.verify(plain_password, hashed_password)
+
+def create_access_token(data: dict, expires_delta: timedelta = None):
+    to_encode = data.copy()
+    expire = datetime.utcnow() + (expires_delta or timedelta(minutes=15))
+    to_encode.update({&quot;exp&quot;: expire})
+    return jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+
+def decode_token(token: str):
+    return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+</code></pre>
+<p>Далее прописываем эндпойнты регистрации, авторизации, смены пароля и данных пользователя:</p>
+<pre><code class="language-python">@router.post(&quot;/register&quot;, response_model=UserOut)
+def register(user_data: UserCreate, db: Session = Depends(get_session)):
+    if db.query(User).filter(User.username == user_data.username).first():
+        raise HTTPException(status_code=400, detail=&quot;Username already registered&quot;)
+
+    user = User(
+        email=user_data.email,
+        username=user_data.username,
+        hashed_password=hash_password(user_data.password)
+    )
+    db.add(user)
+    db.commit()
+    db.refresh(user)
+    return user
+
+
+@router.post(&quot;/login&quot;, response_model=Token)
+def login(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_session)):
+    # Проверка пользователя в базе данных
+    user = db.query(User).filter(User.username == form_data.username).first()
+    if not user or not verify_password(form_data.password, user.hashed_password):
+        raise HTTPException(status_code=401, detail=&quot;Incorrect username or password&quot;)
+
+    access_token = create_access_token(data={&quot;sub&quot;: user.username})
+    return {&quot;access_token&quot;: access_token, &quot;token_type&quot;: &quot;bearer&quot;}
+
+
+@router.get(&quot;/me&quot;, response_model=UserOut)
+def read_users_me(current_user: User = Depends(get_current_user)):
+    return current_user
+
+
+@router.get(&quot;/&quot;, response_model=list[UserOut])
+def get_all_users(db: Session = Depends(get_session)):
+    return db.query(User).all()
+
+
+@router.post(&quot;/change-password&quot;)
+def change_password(
+    old_password: str = Form(...),
+    new_password: str = Form(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_session)
+):
+    if not verify_password(old_password, current_user.hashed_password):
+        raise HTTPException(status_code=400, detail=&quot;Incorrect old password&quot;)
+
+    current_user.hashed_password = hash_password(new_password)
+    db.commit()
+    return {&quot;message&quot;: &quot;Password changed successfully&quot;}
+
+@router.put(&quot;/update&quot;)
+def update_user(
+    username: str = Form(...),
+    email: str = Form(...),
+    bio: str = Form(...),
+    age: int = Form(...),
+    current_user: User = Depends(get_current_user),
+    db: Session = Depends(get_session)
+):
+    if current_user.id != current_user.id:
+        raise HTTPException(status_code=403, detail=&quot;You can only update your own data&quot;)
+
+    if username:
+        current_user.username = username
+    if email:
+        current_user.email = email
+    if bio:
+        current_user.bio = bio
+    if age:
+        current_user.age = age
+
+    db.commit()
+    db.refresh(current_user)
+
+    return {&quot;message&quot;: &quot;User data updated successfully&quot;, &quot;user&quot;: current_user}
+</code></pre>
+<p>Пример работы авторизации:
+<img alt="post" src="../images-lr1/p13.png" />
+Доступ к запросам по паролю (изменение пароля и пользовательских данных):
+<img alt="post" src="../images-lr1/p14.png" />
+<img alt="post" src="../images-lr1/p15.png" /></p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  К началу
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.instant", "navigation.tabs", "navigation.top", "search.suggest", "search.highlight", "toc.integrate"], "search": "../../assets/javascripts/workers/search.6ce7567c.min.js", "translations": {"clipboard.copied": "\u0421\u043a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u043d\u043e \u0432 \u0431\u0443\u0444\u0435\u0440", "clipboard.copy": "\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c \u0432 \u0431\u0443\u0444\u0435\u0440", "search.result.more.one": "\u0415\u0449\u0451 1 \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.more.other": "\u0415\u0449\u0451 # \u043d\u0430 \u044d\u0442\u043e\u0439 \u0441\u0442\u0440\u0430\u043d\u0438\u0446\u0435", "search.result.none": "\u0421\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439 \u043d\u0435 \u043d\u0430\u0439\u0434\u0435\u043d\u043e", "search.result.one": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e 1 \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0435", "search.result.other": "\u041d\u0430\u0439\u0434\u0435\u043d\u043e \u0441\u043e\u0432\u043f\u0430\u0434\u0435\u043d\u0438\u0439: #", "search.result.placeholder": "\u041d\u0430\u0447\u043d\u0438\u0442\u0435 \u043f\u0435\u0447\u0430\u0442\u0430\u0442\u044c \u0434\u043b\u044f \u043f\u043e\u0438\u0441\u043a\u0430", "search.result.term.missing": "\u041e\u0442\u0441\u0443\u0442\u0441\u0442\u0432\u0443\u0435\u0442", "select.version": "\u0412\u044b\u0431\u0435\u0440\u0438\u0442\u0435 \u0432\u0435\u0440\u0441\u0438\u044e"}}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d6f25eb3.min.js"></script>
+      
+    
+  </body>
+</html>
