@@ -16,7 +16,7 @@
     
     
       
-        <title>Практика 2. Разработка веб-приложения для поиска партнеров в путешествие. - Web-labs-Spring</title>
+        <title>Задача 3. Вызов парсера из FastAPI через очередь - Web-labs-Spring</title>
       
     
     
@@ -68,7 +68,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#2-" class="md-skip">
+        <a href="#3-fastapi" class="md-skip">
           Перейти к содержанию
         </a>
       
@@ -102,7 +102,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Практика 2. Разработка веб-приложения для поиска партнеров в путешествие.
+              Задача 3. Вызов парсера из FastAPI через очередь
             
           </span>
         </div>
@@ -202,7 +202,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../main-lr1/" class="md-tabs__link">
+      <a href="../../lr-1/main-lr1/" class="md-tabs__link">
         
   
     
@@ -236,7 +236,7 @@
   
   
     <li class="md-tabs__item">
-      <a href="../../lr-3/main-lr3/" class="md-tabs__link">
+      <a href="../main-lr3/" class="md-tabs__link">
         
   
     
@@ -310,7 +310,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../main-lr1/" class="md-nav__link">
+      <a href="../../lr-1/main-lr1/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -350,7 +350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../lr-3/main-lr3/" class="md-nav__link">
+      <a href="../main-lr3/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -378,53 +378,55 @@
                   
 
 
-<h1 id="2-">Практика 2. Разработка веб-приложения для поиска партнеров в путешествие.</h1>
-<h2 id="1">Задание 1. Подключение к базе данных.</h2>
-<p>Создаем файл connection.py, через который будем подключаться к бд:</p>
-<pre><code class="language-python">from sqlmodel import SQLModel, Session, create_engine
-from models.models import *
-import os
+<h1 id="3-fastapi">Задача 3. Вызов парсера из FastAPI через очередь</h1>
+<p><strong>Задача 3:</strong> Необходимо добавить зависимости для Celery и Redis в проект. Celery будет использоваться для обработки задач в фоне, а Redis будет выступать в роли брокера задач и хранилища результатов.</p>
+<p>Создаем файл celery worker: </p>
+<pre><code class="language-python">import os
+from celery import Celery
 from dotenv import load_dotenv
 
 load_dotenv()
-db_url = os.getenv('DB_ADMIN')
-engine = create_engine(db_url, echo=True)
 
-def init_db():
+REDIS_URL = os.getenv(&quot;REDIS_URL&quot;, &quot;redis://redis:6379/0&quot;)
+
+celery = Celery(
+    &quot;tasks&quot;,
+    broker=REDIS_URL,
+    backend=REDIS_URL,
+    include=[&quot;tasks&quot;]
+)
+
+celery.conf.task_routes = {
+    &quot;tasks.run_parser_task&quot;: {&quot;queue&quot;: &quot;parsing&quot;},
+}
+</code></pre>
+<p>Отдельный файл будет для задач:</p>
+<pre><code class="language-python">from celery_worker import celery
+import requests
+
+@celery.task(name=&quot;tasks.run_parser_task&quot;)
+def run_parser_task(urls: list[str]):
     try:
-        print(&quot;Creating tables...&quot;)
-        SQLModel.metadata.create_all(engine)
-        print(&quot;Tables created successfully.&quot;)
+        response = requests.post(&quot;http://parser:8000/parse&quot;, json={&quot;urls&quot;: urls})
+        return response.json()
     except Exception as e:
-        print(f&quot;Error creating tables: {e}&quot;)
-
-def get_session():
-    with Session(engine) as session:
-        yield session
+        return {&quot;status&quot;: &quot;error&quot;, &quot;error&quot;: str(e)}
 </code></pre>
-<p>В PgAdmin проверяем, что все таблицы появились и подключение успешно:
-<img alt="post" src="../images-lr1/p9.png" /></p>
-<h2 id="2-api-many-to-many">Задание 2. Сделать модели и API для many-to-many связей с вложенным отображением.</h2>
-<p>Создадим эндпойнт для вывода поездки и всех сообщений, связанных с ней:</p>
-<pre><code class="language-python">@router.get(&quot;/{trip_id}/with_messages&quot;, response_model=TripWithMessages)
-def get_trip_with_messages(trip_id: int, db: Session = Depends(get_session)):
-    trip = db.exec(select(Trip).where(Trip.id == trip_id).options(selectinload(Trip.messages))).first()
-    if not trip:
-        raise HTTPException(status_code=404, detail=&quot;Trip not found&quot;)
-    return trip
+<p>В main.py пишем еще один эндпойнт, который по task_id будет выводит информацию о запросе: </p>
+<pre><code class="language-python">@app.get(&quot;/parse/{task_id}&quot;)
+def get_parse_status(task_id: str):
+    result = AsyncResult(task_id, app=celery)
+    return {
+        &quot;task_id&quot;: task_id,
+        &quot;status&quot;: result.status,
+        &quot;result&quot;: result.result if result.ready() else None
+    }
 </code></pre>
-<p><img alt="post" src="../images-lr1/p5.png" />
-Создадим эндпойнт для вывода пользователя и созданных им поездок:</p>
-<pre><code class="language-python">@router.get(&quot;/{user_id}/with_trips&quot;, response_model=UserWithTrips)
-def get_user_with_trips(user_id: int, db: Session = Depends(get_session)):
-    db_user = db.exec(select(User).where(User.id == user_id).options(selectinload(User.trips))).first()
-
-    if not db_user:
-        raise HTTPException(status_code=404, detail=&quot;User not found&quot;)
-
-    return db_user
-</code></pre>
-<p><img alt="post" src="../images-lr1/p10.png" /></p>
+<p>Парсер (получаем id задачи):
+<img alt="post" src="../images-lr3/p4.png" /></p>
+<p>Теперь get-запрос по id:
+<img alt="post" src="../images-lr3/p6.png" /></p>
+<p><img alt="post" src="../images-lr3/p5.png" /></p>
 
 
 

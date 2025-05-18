@@ -214,6 +214,40 @@
   
 
       
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../main-lr2/" class="md-tabs__link">
+        
+  
+    
+  
+  Лабораторная работа 2
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../lr-3/main-lr3/" class="md-tabs__link">
+        
+  
+    
+  
+  Лабораторная работа 3
+
+      </a>
+    </li>
+  
+
+      
     </ul>
   </div>
 </nav>
@@ -289,6 +323,46 @@
   
 
     
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../main-lr2/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Лабораторная работа 2
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lr-3/main-lr3/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Лабораторная работа 3
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
   </ul>
 </nav>
                   </div>
@@ -337,7 +411,7 @@
 def parse_and_save(url):
     try:
         response = requests.get(url, verify=certifi.where())
-        soup = BeautifulSoup(response.text, &quot;html.parser&quot;)
+        soup = BeautifulSoup(response.text, &quot;html.app_parser&quot;)
         name = url.split(&quot;/&quot;)[-1].capitalize()
 
         with Session(engine) as db:
@@ -377,7 +451,7 @@ if __name__ == &quot;__main__&quot;:
 def parse_and_save(url):
     try:
         response = requests.get(url, verify=certifi.where())
-        soup = BeautifulSoup(response.text, &quot;html.parser&quot;)
+        soup = BeautifulSoup(response.text, &quot;html.app_parser&quot;)
         name = url.split(&quot;/&quot;)[-1].capitalize()
 
         with Session(engine) as db:
@@ -421,7 +495,7 @@ async def parse_and_save(session, url):
     try:
         async with session.get(url, ssl=ssl_context) as response:
             html = await response.text()
-            soup = BeautifulSoup(html, &quot;html.parser&quot;)
+            soup = BeautifulSoup(html, &quot;html.app_parser&quot;)
             name = url.split(&quot;/&quot;)[-1].capitalize()
 
             with Session(engine) as db:
